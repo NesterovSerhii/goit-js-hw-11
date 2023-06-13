@@ -43,7 +43,7 @@ async function fetchGallery() {
   refs.loadMoreBtn.classList.add('is-hidden');
 
   const res = await apiService.fetchGallery();
-  const { hits, total } = res;
+  const { hits, total, totalHits} = res;
   shownImagesCount += hits.length;
   
   if (!hits.length) {
@@ -57,7 +57,7 @@ async function fetchGallery() {
   renderGallery(hits);
   
   if (shownImagesCount === hits.length) {
-      Notify.success(`Hooray! We found ${total} images.`);
+      Notify.success(`Hooray! We found ${totalHits} images.`);
       refs.loadMoreBtn.classList.remove('is-hidden'); 
     }
     refs.loadMoreBtn.classList.remove('is-hidden'); 
@@ -103,6 +103,5 @@ function renderGallery(hits) {
 }
 
 function onLoadMore() {
-    apiService.incrementPage();
     fetchGallery();
  }
